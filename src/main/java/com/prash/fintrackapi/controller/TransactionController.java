@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,37 +32,45 @@ public class TransactionController {
     private TransactionService transactionService;
 
     @PostMapping
-    public ResponseEntity<TransactionResponseDTO> createTransaction(@Valid @RequestBody TransactionRequestDTO request) {
-        String userEmail = "test@example.com";
+    public ResponseEntity<TransactionResponseDTO> createTransaction(
+            @Valid @RequestBody TransactionRequestDTO request,
+            Authentication authentication) {
+        String userEmail = authentication.getName();
         TransactionResponseDTO created = transactionService.createTransaction(request, userEmail);
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<TransactionResponseDTO>> getAllTransactions() {
-        String userEmail = "test@example.com";
+    public ResponseEntity<List<TransactionResponseDTO>> getAllTransactions(Authentication authentication) {
+        String userEmail = authentication.getName();
         List<TransactionResponseDTO> transactions = transactionService.getAllTransactions(userEmail);
         return ResponseEntity.ok(transactions);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TransactionResponseDTO> getTransactionById(@PathVariable Long id) {
-        String userEmail = "test@example.com";
+    public ResponseEntity<TransactionResponseDTO> getTransactionById(
+            @PathVariable Long id,
+            Authentication authentication) {
+        String userEmail = authentication.getName();
         TransactionResponseDTO transaction = transactionService.getTransactionById(id, userEmail);
         return ResponseEntity.ok(transaction);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TransactionResponseDTO> updateTransaction(@PathVariable Long id,
-                                                                    @Valid @RequestBody TransactionRequestDTO request) {
-        String userEmail = "test@example.com";
+    public ResponseEntity<TransactionResponseDTO> updateTransaction(
+            @PathVariable Long id,
+            @Valid @RequestBody TransactionRequestDTO request,
+            Authentication authentication) {
+        String userEmail = authentication.getName();
         TransactionResponseDTO updated = transactionService.updateTransaction(id, request, userEmail);
         return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTransaction(@PathVariable Long id) {
-        String userEmail = "test@example.com";
+    public ResponseEntity<Void> deleteTransaction(
+            @PathVariable Long id,
+            Authentication authentication) {
+        String userEmail = authentication.getName();
         transactionService.deleteTransaction(id, userEmail);
         return ResponseEntity.noContent().build();
     }
@@ -71,9 +80,11 @@ public class TransactionController {
             @RequestParam(required = false) LocalDateTime startDate,
             @RequestParam(required = false) LocalDateTime endDate,
             @RequestParam(required = false) Long categoryId,
-            @RequestParam(required = false) TransactionType type) {
-        String userEmail = "test@example.com";
-        List<TransactionResponseDTO> transactions = transactionService.getTransactionsByFilters(userEmail, startDate, endDate, categoryId, type);
+            @RequestParam(required = false) TransactionType type,
+            Authentication authentication) {
+        String userEmail = authentication.getName();
+        List<TransactionResponseDTO> transactions = transactionService.getTransactionsByFilters(
+                userEmail, startDate, endDate, categoryId, type);
         return ResponseEntity.ok(transactions);
     }
 }
