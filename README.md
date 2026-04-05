@@ -214,6 +214,13 @@ HTTP status codes used correctly — 200, 201, 400, 401, 403, 404.
 
 ---
 
+<img width="1920" height="1080" alt="Screenshot from 2026-04-05 14-25-21" src="https://github.com/user-attachments/assets/d6b5b85a-e796-4a17-a6f8-91ba9257d434" />
+
+<img width="1920" height="1080" alt="Screenshot from 2026-04-02 13-45-10" src="https://github.com/user-attachments/assets/77829949-bdcd-4aba-a99e-ce75eef27eb6" />
+<img width="1920" height="1080" alt="Screenshot from 2026-04-02 13-45-26" src="https://github.com/user-attachments/assets/4e675c75-8525-4e52-ba52-213e3ef88a88" />
+<img width="1920" height="1080" alt="Screenshot from 2026-04-02 13-51-48" src="https://github.com/user-attachments/assets/90f91ade-33f0-4099-8498-5385aaa18937" />
+
+
 ## Author
 
 **Prashant Bhanage**  
