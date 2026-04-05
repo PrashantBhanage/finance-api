@@ -37,6 +37,7 @@ public class SecurityConfig {
                 .requestMatchers("/swagger-resources/**").permitAll()
                 // Auth and categories are public
                 .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/test").permitAll()
                 .requestMatchers("/api/categories/**").permitAll()
                 // Protected endpoints
                 .requestMatchers("/api/users/**").hasRole("ADMIN")
